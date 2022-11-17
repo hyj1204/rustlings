@@ -2,10 +2,11 @@
 // Address all the TODOs to make the tests pass!
 // Execute `rustlings hint enums3` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
-
 enum Message {
-    // TODO: implement the message variant types based on their usage below
+    ChangeColor((u8, u8, u8)),
+    Echo(String),
+    Move(Point),
+    Quit,
 }
 
 struct Point {
@@ -37,7 +38,15 @@ impl State {
     }
 
     fn process(&mut self, message: Message) {
-        // TODO: create a match expression to process the different message variants
+        match message {
+            //所有的函数因为是在state里面的，所以一定要加self
+            //所有的函数都是直接放数据，没有输入名字
+            //所有的函数都是（）call,所有的stuct都是{}建立instance
+            Message::ChangeColor((x, y, z)) => self.change_color((x, y, z)),
+            Message::Move(Point { x, y }) => self.move_position(Point { x, y }),
+            Message::Quit => self.quit(),
+            Message::Echo(text) => self.echo(text),
+        }
     }
 }
 
